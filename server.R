@@ -49,8 +49,8 @@ shinyServer(function(input, output) {
   output$plotMap <- renderPlot({
     e <- extent(as.numeric(c(input$xmin,input$xmax,input$ymin,input$ymax)))
     map <- switch(mapType(), 
-           plotRGB(gmap(e,rgb = T,scale = 1,type = 'terrain')),
-           plotRGB(gmap(e,rgb = T,scale = 2,type = 'satellite')))
+           plotRGB(gmap(e,rgb = T,scale = 1,type = 'satellite')),
+           plotRGB(gmap(e,rgb = T,scale = 2,type = 'terrain')))
     }
   )
 })
