@@ -4,6 +4,10 @@ require(raster)
 require(dismo)
 
 shinyServer(function(input, output) {
+  ext <- reactive({
+    extent(as.numeric(c(input$xmin,input$xmax,input$ymin,input$ymax)))
+  })
+  
   mapType <- reactive({
     # Fetch the appropriate data object, depending on the value
     # of input$dataset.
@@ -30,27 +34,23 @@ shinyServer(function(input, output) {
     # This function should write data to a file given to it by
     # the argument 'file'.
     content = function(file) {
-      e <- extent(as.numeric(c(input$xmin,input$xmax,input$ymin,input$ymax)))
       switch(mapType(), 
-                  gmap(e,rgb = T,
+                  gmap(ext(),rgb = T,
                               scale = 2,
                               filename = file,
-                              type = 'satellite',
-                              size = c(as.numeric(input$w),as.numeric(input$h))),
-                  gmap(e,rgb = T,
+                              type = 'satellite'),
+                  gmap(ext(),rgb = T,
                               scale = 2,
                               filename = file,
-                              type = 'terrain',
-                              size = c(as.numeric(input$w),as.numeric(input$h)))
+                              type = 'terrain')
       )
     }
   )
   
   output$plotMap <- renderPlot({
-    e <- extent(as.numeric(c(input$xmin,input$xmax,input$ymin,input$ymax)))
     map <- switch(mapType(), 
-           plotRGB(gmap(e,rgb = T,scale = 1,type = 'satellite')),
-           plotRGB(gmap(e,rgb = T,scale = 2,type = 'terrain')))
+           plotRGB(gmap(ext(),rgb = T,scale = 2,type = 'satellite')),
+           plotRGB(gmap(ext(),rgb = T,scale = 2,type = 'terrain')))
     }
   )
 })
