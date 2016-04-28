@@ -23,6 +23,7 @@ shinyUI(fluidPage(
                         textInput('ymin','Minimum',value = -1.1,width = 250)),
                  column(width = 6,
                         textInput('ymax','Maximum',value = -0.04,width = 250))),
+        h3('Preview'),
         fluidRow(column(width = 12,
                         plotOutput("plotMap")))
         )

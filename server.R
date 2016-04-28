@@ -25,27 +25,30 @@ shinyServer(function(input, output) {
     # Define file name for browser to save as
     filename = function() {
       if(mapType() == 1){
-        return('Satellite.gif')
+        return('Satellite.zip')
       } else{
-        return('Topographic.gif')
+        return('Topographic.zip')
       }
     },
     
     # This function should write data to a file given to it by
     # the argument 'file'.
-    content = function(file) {
-      switch(mapType(), 
-                  gmap(ext(),rgb = T,
-                              scale = 2,
-                              filename = file,
-                              type = 'satellite'),
-                  gmap(ext(),rgb = T,
-                              scale = 2,
-                              filename = file,
-                              type = 'terrain')
-      )
+    content = function(file){
+      browser()
+      if(mapType()==1){ 
+        gmap(ext(),rgb = T,
+                    scale = 2,
+                    filename = 'Satellite.gif',
+                    type = 'satellite')
+        zip(file,c('Satellite.gfw','Satellite.prj','Satellite.gif'))
+      }else{
+        gmap(ext(),rgb = T,
+                    scale = 2,
+                    filename = 'Topographic.gif',
+                    type = 'terrain')
+        zip(file,c('Topographic.gfw','Topographic.prj','Topographic.gif'))}
     }
-  )
+    )
   
   output$plotMap <- renderPlot({
     map <- switch(mapType(), 
