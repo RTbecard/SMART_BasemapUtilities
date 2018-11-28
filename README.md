@@ -2,6 +2,8 @@
 A shiny web app to automatically generate georeferenced GIFs compatible with SMART conservation software.  This allows users with no GIS experience to create high quality map backgrounds from satellite or topology for their SMART conservation areas.
 The gifs are supplemented by `.proj` and `.grw` (projection and worldfile) files for ESRI style georeferencing.
 
+![Screenshot](test.jpeg)
+
 ### Google maps API
 Google maps static API no longer allows anonymous requests.
 To fetch a map image, you'll have to provide an API token in your code [here](https://github.com/RTbecard/SMART_BasemapUtilities/blob/master/server.R#L13).
